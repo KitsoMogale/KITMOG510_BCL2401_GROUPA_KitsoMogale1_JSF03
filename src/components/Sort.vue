@@ -4,7 +4,7 @@
         Sort by:{{" "}}
       </label>
       <select
-        onChange={handleSort}
+        @change='handleSort'
         :value='mainstore.sorting'
         name=""
         id="sort"
@@ -26,6 +26,7 @@
     name: 'sort',
     setup(){
         const mainstore = mainStore();
+        
 
   return {
     mainstore,
