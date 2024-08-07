@@ -3,12 +3,14 @@ export const getCategories = async () => {
       const response = await fetch(
         "https://fakestoreapi.com/products/categories"
       );
+      
       if (!response.ok) {
         throw new Error(
           "Data fetching failed, please check your network connection"
         );
       }
       const data = await response.json();
+    //   console.log(data +' '+1)
       return { response: data };
     } catch (error) {
       return { error: error };

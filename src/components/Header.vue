@@ -70,14 +70,6 @@
          </nav>
        </header>
    </template>
-   <script>
-   export default {
-       
-    name:'Header',
-   
-       setup(props) {
-           
-       }
-       
-   }
+   <script setup>
+ 
    </script>

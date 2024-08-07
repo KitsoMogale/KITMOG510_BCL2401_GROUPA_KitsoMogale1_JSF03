@@ -42,6 +42,7 @@
                <template v-for="name in categories" >
                 <li >
                   <button
+                  type="button"
                   @click="handleFilter(name)"
                     class="inline-flex w-full px-4 py-2 hover:bg-gray-100"
                   >
@@ -59,7 +60,7 @@
             class=" p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
             placeholder="Search products..."
             :value='mainstore.searchTerm'
-            @change='handleSearch'
+            @input='handleSearch'
           />
           <button
             type="submit"
@@ -90,51 +91,43 @@
 </template>
 
 
-<script>
+<script setup>
    import {mainStore} from '../store.js'
    import { getCategories } from "../api.js";
    import {ref} from 'vue'
 
-  export default {
-    name:'Filter',
-
-   async setup(){
+  
         const mainstore = mainStore();
         let categories = ref(null)
         let error = ref(null);
-
+        
+       async function initializeCate(){
          const { response, error2 } = await getCategories();
           
-         categories = response;
-         error = error2;
-       
+         categories.value = response;
+         error.value = error2;
+        }
 
-    const toggleDropdown = () => {
+        initializeCate();
+
+    function toggleDropdown()  {
     const dropDown = document.getElementById("dropdown");
     dropDown.classList.contains("hidden")
       ? dropDown.classList.remove("hidden")
       : dropDown.classList.add("hidden");
       };
 
-      const handleFilter = (category) => {
-    setFilterItem(category);
+      function handleFilter(category) {
+        
+        
+    mainstore.setFilterItem(category);
     document.getElementById("dropdown").classList.add("hidden");
-    fetchProducts();
-  };
+    mainstore.fetchProducts();
+     };
 
-  const handleSearch = (event) => {
-    setSearchTerm(event.target.value);
-    searchProducts(searchTerm);
-  };
+  function handleSearch (event) {
+    mainstore.setSearchTerm(event.target.value);
+    mainstore.searchProducts();
+    };
       
-
-  return {
-            mainstore,
-            categories,
-            error,
-            toggleDropdown,
-        }
-    }
-    
-}
 </script>

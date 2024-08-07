@@ -18,21 +18,14 @@
 </template>
 
 
-<script>
+<script setup>
    import {mainStore} from '../store.js'
 
- export default {
+  const mainstore = mainStore();
+  const handleSort = (event) => {
+    mainstore.setSorting(event.target.value);
+    mainstore.sortProducts();
+  };
 
-    name: 'sort',
-    setup(){
-        const mainstore = mainStore();
-        
 
-  return {
-    mainstore,
-}
-
-    }
-    
-}
 </script>

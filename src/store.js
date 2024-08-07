@@ -1,5 +1,8 @@
-import { defineStore } from "pinia";
+import { createPinia, defineStore } from "pinia";
 
+const pinia = createPinia();
+
+export default pinia;
 
 export const mainStore = defineStore('mainstore',{
      state: ()=>({
@@ -31,16 +34,14 @@ export const mainStore = defineStore('mainstore',{
             if (this.filterItem !== "All categories") {
               try {
                 this.loading = true;
-                const response = await fetch(
-                  `https://fakestoreapi.com/products/category/${this.filterItem}`
-                );
+                const response = await fetch(  `https://fakestoreapi.com/products/category/${this.filterItem}`);
                 if (!response.ok) {
                   throw new Error(
                     "Data fetching failed, please check your network connection"
                   );
                 }
                 const data = await response.json();
-                
+              
                  this.products = data;
                   this.originalProducts = JSON.parse(JSON.stringify(data));
                   this.loading = false;
@@ -77,11 +78,10 @@ export const mainStore = defineStore('mainstore',{
         
           sortProducts () {
             if (this.sorting !== "default") {
-              set({
-                products: this.products.sort((a, b) =>
+               console.log(this.sorting)
+                this.products= this.products.sort((a, b) =>
                   this.sorting === "low" ? a.price - b.price : b.price - a.price
-                ),
-              });
+                );
             } else {
               const { originalProducts } = this;
               this.products= JSON.parse(JSON.stringify(originalProducts)) 
