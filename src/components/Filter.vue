@@ -101,12 +101,11 @@
    async setup(){
         const mainstore = mainStore();
         let categories = ref(null)
-        let error = ref();
+        let error = ref(null);
 
          const { response, error2 } = await getCategories();
           
          categories = response;
-         console.log(categories)
          error = error2;
        
 
@@ -115,9 +114,21 @@
     dropDown.classList.contains("hidden")
       ? dropDown.classList.remove("hidden")
       : dropDown.classList.add("hidden");
+      };
+
+      const handleFilter = (category) => {
+    setFilterItem(category);
+    document.getElementById("dropdown").classList.add("hidden");
+    fetchProducts();
   };
-      console.log(categories)
-        return {
+
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+    searchProducts(searchTerm);
+  };
+      
+
+  return {
             mainstore,
             categories,
             error,
