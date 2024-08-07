@@ -15,7 +15,7 @@
               </div>
             </h2>
           </header>
-          <!-- <Ratings {...rating} /> -->
+          <Ratings :rating=props.product.rating />
           <div class="text-base line-clamp-2 font-extrabold text-slate-500 leading-snug">
             <h2>${{props.product.price}}</h2>
           </div>
@@ -63,6 +63,7 @@
 <script setup>
 import {ref} from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import Ratings from '../Ratings.vue'
   
   const props = defineProps(['product']);
   const urlImage = ref(props.product.image);
