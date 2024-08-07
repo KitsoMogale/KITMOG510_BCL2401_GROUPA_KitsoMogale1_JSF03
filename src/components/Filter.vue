@@ -8,7 +8,7 @@
           class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 "
           type="button"
         >
-          {{filterItem}}
+          {{mainstore.filterItem}}
           <svg
             class="w-2.5 h-2.5 ms-2.5"
             aria-hidden="true"
@@ -34,7 +34,7 @@
             aria-labelledby="dropdown-button"
           >
             <li
-              @click='() => handleFilter("All categories")''
+              @click='() => handleFilter("All categories")'
               class="inline-flex w-full px-4 py-2 hover:bg-gray-100"
             >
               All categories
@@ -42,7 +42,7 @@
 
                 <li v-for="name in categories" key='name'>
                   <button
-                    @click='() => handleFilter(name)'
+                    @click="() => handleFilter(name)"
                     class="inline-flex w-full px-4 py-2 hover:bg-gray-100"
                   >
                     {{name}}
@@ -57,7 +57,7 @@
             name="searchInput"
             class=" p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
             placeholder="Search products..."
-            value={searchTerm}
+            :value='mainstore.searchTerm'
             onChange={handleSearch}
           />
           <button
@@ -90,8 +90,18 @@
 
 
 <script>
-export default {
+   import {mainStore} from '../store.js'
+
+  export default {
     name:'Filter',
+
+    setup(){
+        const mainstore = mainStore();
+
+        return {
+            mainstore,
+        }
+    }
     
 }
 </script>
