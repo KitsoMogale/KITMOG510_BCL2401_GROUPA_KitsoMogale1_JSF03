@@ -18,20 +18,22 @@
    import ProductDetail from '../products/ProductDetail.vue'
    import { fetchSingleProduct } from "../../api.js";
    import {ref} from 'vue'
+   import { useRoute, useRouter } from 'vue-router'
 
    const loading = ref(false);
    const error = ref(null);
    const product = ref(null);
-   const id = ref($route.params.id);
+   const route = useRoute();
+   const id = ref(route.params.id);
 
    const fetchData = async () => {
-      loading = true;
-      const { response, error1 } = await fetchSingleProduct(id);
+      loading.value = true;
+      const { response, error1 } = await fetchSingleProduct(id.value);
       if (error1) {
-       error = error1;
+       error.value = error1;
       }
-      setProduct(response);
-      loading = false;
+      product.value = response;
+      loading.value = false;
     };
 
     fetchData();

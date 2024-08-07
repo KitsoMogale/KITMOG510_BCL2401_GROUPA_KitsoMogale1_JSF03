@@ -62,13 +62,21 @@
 
 <script setup>
 import {ref} from 'vue'
+import { useRoute, useRouter } from 'vue-router'
   
   const props = defineProps(['product']);
   const urlImage = ref(props.product.image);
+  const router = useRouter();
+
+
 
   const addToFavourites = (event) => {
     event.stopPropagation();
   };
+
+ function handleClick() {
+      router.push(`/product/${props.product.id}`)
+    }
 
 
 </script>
